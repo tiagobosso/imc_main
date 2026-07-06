@@ -1,0 +1,65 @@
+body{
+    font-family: Arial, sans-serif;
+    max-width: 700px;
+    margin: 40px auto;
+    background: #1c1b1b;
+}
+.tabs{
+    display: flex;
+    margin-bottom: 10px;
+}
+.tab-btn{
+    flex: 1 ;
+    padding: 15px;
+    cursor: pointer;
+    border: none;
+    background: #ddd;
+    font-size: 16px;
+}
+.tab-btn.active{
+    background: #007bff;
+    color: white;
+}
+.tab-content{
+    display: none;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+}
+.tab-content.active{
+    display: block;
+}
+input{
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+button{
+    padding: 12px;
+    background: #1d6a2f;
+    color: white;
+    border: none;
+    width: 100%;
+    cursor: pointer;
+    font-size: 16;
+    border-radius: 5px;
+}
+.resultado{
+    margin-top: 15px;
+    padding: 15px;
+    background: #eee;
+    border-radius: 5px;
+    min-height: 40px;
+}
+.logout-link{
+    display: inline-block;
+    margin-top: 12px;
+    margin-bottom: 24px;
+    color: #555;
+    text-decoration: none;
+    font-size: 0.9rem;
+    cursor: pointer;
+    float: right;
+    margin-right: 20px;
+}

@@ -1,0 +1,37 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tabs com api</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="tabs">
+        <button class="tab-btn active" onclick="abrirTab(0)">cadastro</button>
+        <button class="tab-btn" onclick="abrirTab(1)">Média</button>
+    </div>
+    <a id="logout" class="logout-link" onclick="logout()">logout</a>
+
+    <div class="tab-content active">
+        <h2>cadastrar cliente</h2>
+        <input type="text" id="nome" placeholder="Digite seu Nome">
+        <input type="number" id="cpf" placeholder="digite seu cpf">
+        <input type="number" id="cep" placeholder="Digite seu cep" onblur="buscarEndereco()">
+        <input type="text" id="rua" placeholder="rua">
+        <input type="text" id="cidade" placeholder="cidade">
+        <input type="text" id="estado" placeholder="estado">
+        <input type="number" id="numero" placeholder="digite seu numero">
+        <button onclick="cadastrarClientes()">salvar</button>
+        <div class="resultado" id="resultadoImc"></div>
+    </div>
+    <div class="tab-content">
+        <h2>calcular média</h2>
+        <input type="text" id="nome" placeholder="Digite seu Nome">
+        <input type="number" id="nota1" placeholder="Digite sua primeira nota">
+        <input type="number" id="nota2" placeholder="Digite sua segunda nota">
+        <button onclick="calcularMedia()">Calcular média</button>
+        <div class="resultado" id="resultadoMedia"></div>
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>
