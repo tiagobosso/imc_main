@@ -21,7 +21,7 @@ function lerClientes(){//ver se o clientes que o front está mandando já existe
         return JSON.parse(data) || []; // a função parse transforma a string em json e o || faz com que se na hora de transformar o dados dar erro, ele retorna um array vazio
     }
     catch(e){
-        return [];// caso der erro ele retorna um arry vazio
+        return [];// caso der erro ele retorna um array vazio
     }
 }
 
@@ -71,16 +71,16 @@ function lerUsuarios(){//ver se o usuario que o front está mandando já existe 
 }
 
 app.post("/usuarios", (req, res) =>{
-    const { nome, cpf, cep, rua, cidade, estado, numero } = req.body;
-    if (!nome || !cpf || !cep){
+    const { nome, email, senha } = req.body;
+    if (!nome || !email || !senha){
         return res.status(404).json({erro: "dados incompletos"})
     }
     const usuarios = lerUsuarios(); //todos os usuarios serão armazenados na constante usuarios
-    if (usuarios.some(c=>c.cpf===cpf)){ //o c funciona como uma variavel de posição, que vai tomar cada posição de linha da const usuarios e verificar se é igual ao cpf que está vindo
+    if (usuarios.some(u=>u.email===email && u.senha===senha)){ //o 'u' funciona como uma variavel de posição, que vai tomar cada posição de linha da const usuarios e verificar se é igual ao cpf que está vindo
         return res.status(404).json({erro: "usuarios já cadastrado"})
     }
-    const novoUsuario = {nome, cpf, cep, rua, cidade, estado, numero};//se o usuario for novo, ele será salvo na cost novoUsuario
-    clientes.push(novoUsuario);// a função push vai salvar todos os dados dentro da const usuarios sem excluir os usuarios já cadastrados anteriormente, formando uma lista com os usuarios antigos mais o novo
+    const novoUsuario = {nome, email, senha};//se o usuario for novo, ele será salvo na cost novoUsuario
+    usuarios.push(novoUsuario);// a função push vai salvar todos os dados dentro da const usuarios sem excluir os usuarios já cadastrados anteriormente, formando uma lista com os usuarios antigos mais o novo
     salvarUsuarios(usuarios)//vai salvar clientes dentro da função salvarUsuarios
     return res.status(201).json({mensagem: "usuario cadastrado com sucesso"})
 })
@@ -128,17 +128,25 @@ app.post("/media", (req, res) => {
     })
 
 })
-app.post("/login", (req, res) => {
-    const { email, senha } = req.body;
 
-    if (!email || !senha) {
-        return res.status(404).json({ erro: "dados incompletos" })
+// POST http://localhost3000/login
+app.post("/login", (req, res) => {
+    const { user, senha } = req.body; // 'user' é o e-mail no front-end
+
+    if (!user || !senha) {
+        return res.status(404).json({ erro: "E-mail (user) e senha são obrigatórios" })
     }
-     if (email === "admin@admin.com" && senha === "123456") {
-        return res.status(200).json({ token: "123456" })
-    } else {
-        return res.status(404).json({ erro: "senha ou email incorreto" })
+
+    const usuarios = lerUsuarios();
+    const usuario = usuarios.find(u => u.email === user);
+
+     if (!usuario || usuario.senha !== senha) {
+        return res.status(401).json({ erro: "E-mail ou senha incorretos." });
     }
+
+    // Gera um token para a sessão
+    // const token = crypto.randomUUID();
+    res.json({ token, mensagem: "Login realizado com sucesso!"})
 })
 //finalzao
 app.listen(port, () => {
