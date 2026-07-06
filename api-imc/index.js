@@ -72,6 +72,8 @@ function lerUsuarios(){//ver se o usuario que o front está mandando já existe 
 
 app.post("/usuarios", (req, res) =>{
     const { nome, email, senha } = req.body;
+
+
     if (!nome || !email || !senha){
         return res.status(404).json({erro: "dados incompletos"})
     }
@@ -82,7 +84,7 @@ app.post("/usuarios", (req, res) =>{
     const novoUsuario = {nome, email, senha};//se o usuario for novo, ele será salvo na cost novoUsuario
     usuarios.push(novoUsuario);// a função push vai salvar todos os dados dentro da const usuarios sem excluir os usuarios já cadastrados anteriormente, formando uma lista com os usuarios antigos mais o novo
     salvarUsuarios(usuarios)//vai salvar clientes dentro da função salvarUsuarios
-    return res.status(201).json({mensagem: "usuario cadastrado com sucesso"})
+    return res.status(201).json({mensagem: "usuario cadastrado com sucesso", token:"1234"})
 })
 
 //http://localhost:3000/saudacao?nome=maria
@@ -147,7 +149,7 @@ app.post("/login", (req, res) => {
     // Gera um token para a sessão
     // const token = crypto.randomUUID();
     res.json({ token, mensagem: "Login realizado com sucesso!"})
-})
+}); 
 //finalzao
 app.listen(port, () => {
     console.log(`servidor rodando em http://localhost:${port}`)
